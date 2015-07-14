@@ -1,6 +1,6 @@
 # Overview
 
-This is a Java class that can track and report details of a demo/tutorial that has been deployed to Cloud Foundry
+This is a Java class that can track and report details of a demo/tutorial that has been deployed to Cloud Foundry.
 
 # To Use
 
@@ -8,11 +8,14 @@ This is a Java class that can track and report details of a demo/tutorial that h
 2. Build the utlity JAR file (cf-java-app-tracker-client_{version}.jar) by running the provided ant script
 3. Copy the generated utility JAR (target/cf-java-app-tracker-client_{version}.jar) to your existing WebContent/WEB-INF/lib directory
 4. Add the following lines in your existing WebContent/WEB-INF/web.xml
-  <servlet>
+
+ ```  
+ <servlet>
     <servlet-name>CFJavaTrackerClient</servlet-name>
   	<servlet-class>com.ibm.sample.CFJavaTrackerServlet</servlet-class>
     <load-on-startup>2</load-on-startup>
   </servlet>
+ ```
 5. Re-build, package and deploy your web application.
 
 # Example app
