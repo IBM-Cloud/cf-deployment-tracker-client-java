@@ -1,0 +1,4 @@
+*.class
+# ignore everything in output directories
+/bin/*
+/target/*

@@ -3,25 +3,26 @@
 <project basedir="." default="build" name="java-app-tracker-client">
     <property environment="env"/>
     <property name="srcDir" value="."/>
+	<property name="tgtDir" value="bin"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
- 	  <property name="version.num" value="0.0.7"/>
+ 	  <property name="version.num" value="0.0.8"/>
     <condition property="ARCHIVE_DIR" value="${env.ARCHIVE_DIR}" else="target/">
         <isset property="env.ARCHIVE_DIR" />
     </condition>
 	<property name="jarname" value= "cf-java-app-tracker-client_${version.num}.jar"/>
     <path id="classpathDir">
-        <pathelement location="bin"/>
+        <pathelement location="${tgtDir}"/>
     	<pathelement location="dep-jar/com.ibm.json4j_1.0.9.jar"/>
     	<pathelement location="dep-jar/com.ibm.ws.javaee.servlet.3.1_1.0.9.jar"/>
     </path>
     <target name="init">
-        <mkdir dir="bin"/>
+        <mkdir dir="${tgtDir}"/>
         <mkdir dir="target"/>
     </target>
     <target name="clean">
-        <delete dir="bin"/>
+        <delete dir="${tgtDir}"/>
 		<delete file="${ARCHIVE_DIR}/${jarname}" />		
     </target>
     <target name="build" depends="build-project,build-jar"/>
@@ -29,7 +30,7 @@
     <target name="build-project" depends="clean,init">
 
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}"
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${tgtDir}" source="${source}" target="${target}"
 		includeantruntime="false">
             <src path="src"/>
             <classpath refid="classpathDir"/>
@@ -37,7 +38,10 @@
     </target>
  
    <target name="build-jar" depends="build-project">
-	  <jar destfile="${ARCHIVE_DIR}/${jarname}" basedir="bin/" />
+	  <jar destfile="${ARCHIVE_DIR}/${jarname}">
+	   <fileset dir="${tgtDir}" includes="**/*.class"/>
+   	   <metainf dir="." includes="LICENSE.txt"/>
+   	  </jar>
    </target>
 
 </project>
