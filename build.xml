@@ -7,11 +7,11 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
- 	  <property name="version.num" value="0.0.8"/>
+ 	  <property name="version.num" value="0.0.9"/>
     <condition property="ARCHIVE_DIR" value="${env.ARCHIVE_DIR}" else="target/">
         <isset property="env.ARCHIVE_DIR" />
     </condition>
-	<property name="jarname" value= "cf-java-app-tracker-client_${version.num}.jar"/>
+	<property name="jarname" value= "cf-java-app-tracker-client-${version.num}.jar"/>
     <path id="classpathDir">
         <pathelement location="${tgtDir}"/>
     	<pathelement location="dep-jar/com.ibm.json4j_1.0.9.jar"/>

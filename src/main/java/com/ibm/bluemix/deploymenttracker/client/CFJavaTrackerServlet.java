@@ -15,6 +15,7 @@
 -------------------------------------------------------------------------------*/
 package com.ibm.bluemix.deploymenttracker.client;
 
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.Iterator;
@@ -24,6 +25,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ibm.json.java.JSON;
+import com.ibm.json.java.JSONObject;
 
 /**
  * Simple wrapper class for the Cloud Foundry Java application tracker client. 
@@ -44,8 +48,36 @@ public class CFJavaTrackerServlet extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 		 
+		JSONObject packagejson = null;
+		InputStream packagejsoninwar = null;
+		
+		try {
+			 // retrieve tracking data that might be optionally packaged with the sample application
+			 // getResourceAsStream returns null if resource is not found 
+			 packagejsoninwar = getServletContext().getResourceAsStream("/META-INF/package.json");
+			 if(packagejsoninwar != null)  
+			     packagejson = (JSONObject) JSON.parse(packagejsoninwar, true);
+			 else if(System.getenv("PACKAGE_JSON") != null)
+				 packagejson = (JSONObject) JSON.parse(System.getenv("PACKAGE_JSON"), true); 
+		}
+		catch(Exception ex) {
+			// ignore errors 
+			packagejson = null;
+		}
+		finally {
+			try {
+			    // cleanup                                                                                                                                                                                 
+				if(packagejsoninwar != null)
+					packagejsoninwar.close();
+				packagejsoninwar = null;
+			}
+			catch(Exception ex) {
+				// ignore
+			}
+		}
+		
 		 try {
-			 new CFJavaTrackerClient().track();	
+			new CFJavaTrackerClient().track(packagejson);		        
 		 }
 		 catch(Exception ex) {
 			System.err.println("[CF-java-tracker-client] An error occurred while trying to track application: " + ex.getClass().getName() + ":" + ex.getMessage());
