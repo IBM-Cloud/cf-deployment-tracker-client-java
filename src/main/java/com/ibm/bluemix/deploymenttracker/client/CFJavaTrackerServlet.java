@@ -15,6 +15,7 @@
 -------------------------------------------------------------------------------*/
 package com.ibm.bluemix.deploymenttracker.client;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -36,7 +37,6 @@ import com.ibm.json.java.JSONObject;
  * by sending a GET request to /comibmbluemix/CFAppTracker
  *
  */
-
 @WebServlet(urlPatterns={"/comibmbluemix/CFAppTracker"},loadOnStartup=128)
 public class CFJavaTrackerServlet extends HttpServlet {
 
@@ -88,10 +88,14 @@ public class CFJavaTrackerServlet extends HttpServlet {
 	
 	
 	/**
-	 * Displays the tracker client status page at /comibmbluemix/CFAppTracker
+     * Displays the tracker client status page at /comibmbluemix/CFAppTracker 
+     * @param req  the request to be processed 
+     * @param resp the request response
+     * @throws ServletException if the request for the GET could not be handled
+     * @throws IOException if an input or output error is detected when the servlet handles the GET request 
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-			throws ServletException, java.io.IOException {
+			throws ServletException, IOException {
 		
 		CFJavaTrackerClient cfjtc = new CFJavaTrackerClient();
 		

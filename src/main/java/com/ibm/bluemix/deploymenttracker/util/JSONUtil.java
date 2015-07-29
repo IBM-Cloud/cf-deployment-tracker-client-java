@@ -31,7 +31,7 @@ public class JSONUtil {
 	 * 'Normalizes' a JSONArtifact by converting all keys to lower case (using the default locale), to make key lookup simpler. Examples:
 	 *  {"JSONOBJECTKEY":{"SubKey":"valuE1","SubKeY2":"VALUE2"}} is normalized to {"jsonobjectkey":{"subkey":"valuE1","subkey2":"VALUE2"}}
 	 *  {"JSONObjectArrAY":[{"nAMe":"Joe","agE":4},{"Name":"Jill","aGe":5}]} is normalized to {"jsonobjectarray":[{"name":"Joe","age":4},{"name":"Jill","age":5}]} 
-	 * @param artifact
+	 * @param artifact The JSON artifact to be normalized
 	 * @return null if artifact is null, or a normalized JSONArtifact 
 	 */
 	public static JSONArtifact normalize(JSONArtifact artifact) {

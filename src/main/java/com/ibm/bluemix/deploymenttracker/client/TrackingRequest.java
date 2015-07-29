@@ -47,7 +47,7 @@ public class TrackingRequest {
 
 	/**
 	 * Returns the URL of the assigned tracker or null, if none is assigned
-	 * @return
+	 * @return The currently assigned tracker URL or null, if none is assigned
 	 */
 	public String getTrackingURL() {
 		return trackingurl; 
