@@ -26,7 +26,8 @@
         <delete dir="${tgtDir}"/>
     	<delete dir="${docDir}"/>
 		<delete file="${distDir}/${basejarname}.jar" />
-    	<delete file="${distDir}/${basejarname}-javadoc.jar" />		
+    	<delete file="${distDir}/${basejarname}-javadoc.jar" />
+    	<delete file="${distDir}/${basejarname}-sources.jar" />	
     </target>
     <target name="build" depends="build-project,build-jar"/>
     <target name="cleanall" depends="clean"/>
@@ -46,12 +47,21 @@
 		</javadoc>
 	</target>
 	
-   <target name="build-jar" depends="build-project,doc" description="build jar files">
+   <target name="build-jar" depends="build-project" description="build jar file">
 	  <jar destfile="${distDir}/${basejarname}.jar">
 	   <fileset dir="${tgtDir}" includes="**/*.class"/>
    	   <metainf dir="." includes="LICENSE.txt"/>
    	  </jar>
-	  <jar destfile="${distDir}/${basejarname}-javadoc.jar" basedir="${docDir}"/>
    </target>
 
+   <target name="build-all-jars" depends="build-jar,doc" description="build all jar files">
+   	      <!-- javadoc -->
+		  <jar destfile="${distDir}/${basejarname}-javadoc.jar" basedir="${docDir}"/>
+   	      <!-- sources -->
+   	      <jar destfile="${distDir}/${basejarname}-sources.jar">
+   	        <fileset dir="${srcDir}"/>
+   	        <fileset dir="." includes="LICENSE.txt"/>
+   	      </jar>
+   </target>	
+	
 </project>
