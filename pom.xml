@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.ibm.bluemix.deploymenttracker</groupId>
+  <artifactId>cf-java-app-tracker-client</artifactId>
+  <version>0.0.9</version>
+  <packaging>jar</packaging>
+
+  <name>client</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!--  provided by WebSphere Liberty Profile (free download at https://developer.ibm.com/wasdev/websphere-liberty/) -->
+    <dependency>
+		<groupId>com.ibm</groupId>
+		<artifactId>json4j</artifactId>
+		<version>1.0.9</version>
+	</dependency>
+	
+	<!--  provided by WebSphere Liberty Profile (free download at https://developer.ibm.com/wasdev/websphere-liberty/) -->
+	<dependency>
+		<groupId>com.ibm.ws.javaee</groupId>
+		<artifactId>servlet.3.1</artifactId>
+		<version>1.0.9</version>
+	</dependency>
+	
+  </dependencies>
+  <url>https://github.com/IBM-Bluemix/cf-deployment-tracker-client-java</url>
+</project>

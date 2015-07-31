@@ -1,0 +1,5 @@
+*.class
+# ignore everything in output directories (compiled classes, JAR files and generated documentation)
+/bin/*
+/target/*
+/doc/*

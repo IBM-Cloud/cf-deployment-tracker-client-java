@@ -2,42 +2,66 @@
 
 <project basedir="." default="build" name="java-app-tracker-client">
     <property environment="env"/>
-    <property name="srcDir" value="."/>
+    <property name="srcDir" value="src/main/java"/>
+	<property name="tgtDir" value="bin"/>
+	<property name="docDir" value="doc"/>
+	<property name="distDir" value="target"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
- 	  <property name="version.num" value="0.0.7"/>
-    <condition property="ARCHIVE_DIR" value="${env.ARCHIVE_DIR}" else="target/">
-        <isset property="env.ARCHIVE_DIR" />
-    </condition>
-	<property name="jarname" value= "cf-java-app-tracker-client_${version.num}.jar"/>
+    <property name="version.num" value="0.0.9"/>
+
+	<property name="basejarname" value= "cf-java-app-tracker-client-${version.num}"/>
     <path id="classpathDir">
-        <pathelement location="bin"/>
+        <pathelement location="${tgtDir}"/>
     	<pathelement location="dep-jar/com.ibm.json4j_1.0.9.jar"/>
     	<pathelement location="dep-jar/com.ibm.ws.javaee.servlet.3.1_1.0.9.jar"/>
     </path>
     <target name="init">
-        <mkdir dir="bin"/>
-        <mkdir dir="target"/>
+        <mkdir dir="${tgtDir}"/>
+    	<mkdir dir="${docDir}"/>
+    	<mkdir dir="${distDir}"/>
     </target>
     <target name="clean">
-        <delete dir="bin"/>
-		<delete file="${ARCHIVE_DIR}/${jarname}" />		
+        <delete dir="${tgtDir}"/>
+    	<delete dir="${docDir}"/>
+		<delete file="${distDir}/${basejarname}.jar" />
+    	<delete file="${distDir}/${basejarname}-javadoc.jar" />
+    	<delete file="${distDir}/${basejarname}-sources.jar" />	
     </target>
     <target name="build" depends="build-project,build-jar"/>
     <target name="cleanall" depends="clean"/>
     <target name="build-project" depends="clean,init">
 
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}"
+        <javac debug="false" debuglevel="${debuglevel}" destdir="${tgtDir}" source="${source}" target="${target}"
 		includeantruntime="false">
-            <src path="src"/>
+            <src path="${srcDir}"/>
             <classpath refid="classpathDir"/>
         </javac>
     </target>
- 
-   <target name="build-jar" depends="build-project">
-	  <jar destfile="${ARCHIVE_DIR}/${jarname}" basedir="bin/" />
+	
+	<target name="doc" depends="init" description="generate javadoc">
+	    <javadoc sourcepath="${srcDir}" destdir="${docDir}">
+		 <classpath refid="classpathDir"/>
+		</javadoc>
+	</target>
+	
+   <target name="build-jar" depends="build-project" description="build jar file">
+	  <jar destfile="${distDir}/${basejarname}.jar">
+	   <fileset dir="${tgtDir}" includes="**/*.class"/>
+   	   <metainf dir="." includes="LICENSE.txt"/>
+   	  </jar>
    </target>
 
+   <target name="build-all-jars" depends="build-jar,doc" description="build all jar files">
+   	      <!-- javadoc -->
+		  <jar destfile="${distDir}/${basejarname}-javadoc.jar" basedir="${docDir}"/>
+   	      <!-- sources -->
+   	      <jar destfile="${distDir}/${basejarname}-sources.jar">
+   	        <fileset dir="${srcDir}"/>
+   	        <fileset dir="." includes="LICENSE.txt"/>
+   	      </jar>
+   </target>	
+	
 </project>
