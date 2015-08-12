@@ -19,9 +19,10 @@ The following additional information will be sent in addition if the following a
 
 To take advantage if the tracking functionality in a web application:
 
-1. Download the Cloud Foundry Java application tracker client code from https://github.com/IBM-Bluemix/cf-deployment-tracker-client-java
-2. Build the utlity JAR file (cf-java-app-tracker-client-{version}.jar) by running the provided ant script
-3. Copy the generated utility JAR (target/cf-java-app-tracker-client-{version}.jar) to your web application's `WebContent/WEB-INF/lib` directory
+1. Obtain the Cloud Foundry Java application tracker client library
+ * Download the client library from the [Central Repository](http://search.maven.org/#search|ga|1|g%3A%22com.ibm.bluemix.deploymenttracker%22%20AND%20a%3A%22cf-java-app-tracker-client%22) (groupId **com.ibm.bluemix.deploymenttracker**, artifactId **cf-java-app-tracker-client**) *or*
+ * Download the source code from https://github.com/IBM-Bluemix/cf-deployment-tracker-client-java and build the JAR file by running the provided ant or pom script
+2. Copy client library `cf-java-app-tracker-client-{version}.jar` to your web application's `WebContent/WEB-INF/lib` directory.
 4. Create a `package.json` file in the web applications' `WebContent/META-INF` directory. Replace the application specific information in the example below with your application's information.
 
   ````
