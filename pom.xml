@@ -46,4 +46,9 @@
 
   </dependencies>
   <url>https://github.com/IBM-Bluemix/cf-deployment-tracker-client-java</url>
+
+  <build>
+    <defaultGoal>package</defaultGoal>
+  </build>
+
 </project>
