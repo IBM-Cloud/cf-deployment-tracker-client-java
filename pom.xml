@@ -13,6 +13,21 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
+ <repositories>
+  <repository>
+    <id>Liberty</id>
+    <name>Liberty Repository</name>
+    <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
+    <layout>default</layout>
+    <snapshots>
+        <enabled>false</enabled>
+    </snapshots>
+    <releases>
+        <enabled>true</enabled>
+    </releases>
+  </repository>
+ </repositories>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -21,20 +36,14 @@
       <scope>test</scope>
     </dependency>
     
-    <!--  provided by WebSphere Liberty Profile (free download at https://developer.ibm.com/wasdev/websphere-liberty/) -->
     <dependency>
-		<groupId>com.ibm</groupId>
-		<artifactId>json4j</artifactId>
-		<version>1.0.9</version>
-	</dependency>
-	
-	<!--  provided by WebSphere Liberty Profile (free download at https://developer.ibm.com/wasdev/websphere-liberty/) -->
-	<dependency>
-		<groupId>com.ibm.ws.javaee</groupId>
-		<artifactId>servlet.3.1</artifactId>
-		<version>1.0.9</version>
-	</dependency>
-	
+      <groupId>com.ibm.tools.target</groupId>
+      <artifactId>was-liberty</artifactId>
+      <version>LATEST</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+
   </dependencies>
   <url>https://github.com/IBM-Bluemix/cf-deployment-tracker-client-java</url>
 </project>
