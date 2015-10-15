@@ -4,7 +4,7 @@
 
   <groupId>com.ibm.bluemix.deploymenttracker</groupId>
   <artifactId>cf-java-app-tracker-client</artifactId>
-  <version>0.0.9</version>
+  <version>0.1.0</version>
   <packaging>jar</packaging>
 
   <name>client</name>
