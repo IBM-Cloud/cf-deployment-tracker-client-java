@@ -46,7 +46,7 @@ public class CFJavaTrackerClient {
 	private static final String CLIENT_VERSION = "0.0.6";
 	
 	// default URL to which tracking requests are sent
-	private static final String DEFAULT_TRACKER_URL = "http://deployment-tracker.mybluemix.net/api/v1/track";
+	private static final String DEFAULT_TRACKER_URL = "https://deployment-tracker.mybluemix.net/api/v1/track";
 	
 	// tracking request property names
 	public static final String KEYWORD_APPLICATION_NAME = "application_name";		// defined in VCAP_APPLICATION env property
