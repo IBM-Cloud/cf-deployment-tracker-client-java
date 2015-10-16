@@ -35,8 +35,8 @@ To take advantage if the tracking functionality in a web application:
      }
    }
   ````
-5. Package the web application
-6. Deploy the web application
+5. Package the web application.
+6. Deploy the web application.
 
 To view basic information about the tracker client and the most recent tracking request direct your browser to `<APPLICATION_URL>/comibmbluemix/CFAppTracker`, replacing `<APPLICATION_URL>` with the web application URL.
 
