@@ -2,13 +2,13 @@
 
 This is a Java client that can track and report details of a demo/tutorial that has been deployed to Cloud Foundry.
 
-# To Use
+# Usage
 
 ## Reference the library in your project
 
-To take advantage if the tracking functionality in a web application:
+To take advantage of the tracking functionality in a web application:
 
-### With Maven
+### Add these Maven dependencies
 
   ```xml
   <dependency>
@@ -32,7 +32,8 @@ To take advantage if the tracking functionality in a web application:
 
 ## Provide information about your application
 
-1. Create a `package.json` file in the web applications' `WebContent/META-INF` directory. Replace the application specific information in the example below with your application's information.
+Create a `package.json` file in the web applications' `WebContent/META-INF` directory.
+Replace the application specific information in the example below with your application's information.
 
   ````
    {
@@ -82,7 +83,7 @@ and redeploy the application.
 ## Package and deploy your web application
 
 To view basic information about the tracker client and the most recent
-tracking request direct your browser to `<APPLICATION_URL>/comibmbluemix/CFAppTracker`,
+tracking request, direct your browser to `<APPLICATION_URL>/comibmbluemix/CFAppTracker`,
 replacing `<APPLICATION_URL>` with the web application URL.
 
 # Example app
