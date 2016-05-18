@@ -4,7 +4,7 @@
 
   <groupId>com.ibm.bluemix.deploymenttracker</groupId>
   <artifactId>cf-java-app-tracker-client</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <packaging>jar</packaging>
 
   <name>Cloud Foundry Java application tracker client</name>
