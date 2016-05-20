@@ -44,7 +44,7 @@ public class CFJavaTrackerClient {
 	private static final String TRACKER_SRC_URL = "https://github.com/IBM-Bluemix/cf-deployment-tracker-client-java";
 
 	// client tracker version
-	private static final String CLIENT_VERSION = "0.0.7";
+	private static final String CLIENT_VERSION = "0.2.0";
 	
 	// default URL to which tracking requests are sent
 	private static final String DEFAULT_TRACKER_URL = "https://deployment-tracker.mybluemix.net/api/v1/track";
@@ -57,6 +57,8 @@ public class CFJavaTrackerClient {
 	public static final String KEYWORD_REPOSITORY_URL = "repository_url";           // defined by deployment tracker service
 	public static final String KEYWORD_CODE_VERSION = "code_version";               // defined by deployment tracker service
 	public static final String KEYWORD_REQUEST_DATE = "date_sent";					// defined by deployment tracker service
+	public static final String KEYWORD_RUNTIME = "runtime"; 			            // defined by deployment tracker service
+	public static final String KEYWORD_PLANS = "plans"; 			                // defined by deployment tracker service
 	public static final String KEYWORD_CUSTOM_TRACKER_URL = "custom_tracker_url";	// defined by deployment tracker client
 	public static final String KEYWORD_BOUND_VCAP_SERVICES = "bound_vcap_services";	// defined in VCAP_SERVICES env property
 		
@@ -249,7 +251,7 @@ public class CFJavaTrackerClient {
 				payload.put(KEYWORD_SPACE_ID, (String) obj.get(KEYWORD_SPACE_ID));                          // singleton per VCAP_APPLICATION definition
 								
 				// process optional application description (refer to https://docs.npmjs.com/files/package.json)
-				 if(packagedescriptor != null) {
+				if(packagedescriptor != null) {
 					
 					// normalize the package descriptor keys by converting them to lower case to simplify lookup 
 					JSONObject normalizedpackagedescriptor = (JSONObject) JSONUtil.normalize(packagedescriptor); 
@@ -258,9 +260,11 @@ public class CFJavaTrackerClient {
 				    payload.put(KEYWORD_CODE_VERSION, (String) normalizedpackagedescriptor.get("version"));
 				    // package URL is optional
 				    if(normalizedpackagedescriptor.get("repository") != null)
-				    	payload.put(KEYWORD_REPOSITORY_URL,(String)((JSONObject)normalizedpackagedescriptor.get("repository")).get("url"));
-				    
-				 }
+				    	payload.put(KEYWORD_REPOSITORY_URL,(String)((JSONObject)normalizedpackagedescriptor.get("repository")).get("url"));				    
+				}
+
+				// identify the application's runtime environment; for applicaitons tracked by this client the runtime is "[WebSphere] liberty"
+				payload.put(KEYWORD_RUNTIME, "liberty");
 
 				// 'VCAP_SERVICES' is a JSON formatted environment variable in Cloud Foundry, identifying the services that are bound to the application
 				String vcapServicesJSON = System.getenv("VCAP_SERVICES");
@@ -280,43 +284,76 @@ public class CFJavaTrackerClient {
 						         }
 						      },
 						      ...
-						   ],
-						   "rediscloud": [
 						      {
-						         "name": "deployment-tracker-redis-redis-cloud",
-						         "label": "rediscloud",
-						         "plan": "30mb",
+						         "name": "other-cloudant-db",
+						         "label": "cloudantNoSQLDB",
+						         "plan": "Shared",
 						         "credentials": {
-									...
+						         	...
 						         }
 						      }
-						   ]
+						   ],
+						   ...  
 						}
 					*/
-					Iterator<String> it = vcapServices.keySet().iterator();
-					if(it.hasNext()) {
-						JSONObject boundVcapServices = new JSONObject();
+					Iterator<String> serviceLabelIterator = vcapServices.keySet().iterator();
+					// if at least service is bound to the tracked application collect the relevant information
+					if(serviceLabelIterator.hasNext()) {
+						JSONObject boundVcapServices = new JSONObject(),
+						           serviceInstance = null,
+						           serviceProperty = null;
+						JSONArray serviceInstances = null,
+								  servicePlans = null;
+						Iterator<JSONObject> serviceInstanceIterator = null;
 						String serviceLabel = null;
-						JSONObject serviceProperty = null;
-						// iterate through list of services and count the number of instances
-						while(it.hasNext()) {
-							serviceLabel = (String) it.next();
+
+						// iterate through list of services, count the number of instances and record plan information
+						while(serviceLabelIterator.hasNext()) {
+							serviceLabel = (String) serviceLabelIterator.next();
 							serviceProperty = new JSONObject();
-							serviceProperty.put("count",((JSONArray) vcapServices.get(serviceLabel)).size());
+							serviceInstances = (JSONArray) vcapServices.get(serviceLabel);
+							// add "count" property to tracking payload , identifying the number of instances for this service label
+							serviceProperty.put("count", serviceInstances.size());
 							/*
-                                "rediscloud": {			// serviceLabel
-							      "count": 1 			// serviceProperty (number of instances)
+                                "cloudantNoSQLDB": {	// serviceLabel
+							      "count": 2 			// serviceProperty (number of service instances)
 							    }
                              */
+
+							// iterate through service instances and extract plan information
+							servicePlans = new JSONArray();
+							serviceInstanceIterator = serviceInstances.iterator();
+							while(serviceInstanceIterator.hasNext()) {
+								serviceInstance = serviceInstanceIterator.next();
+								if(serviceInstance.containsKey("plan")) {
+									servicePlans.add(serviceInstance.get("plan"));	
+								}
+							}
+
+							// add plan information (some services, such as user-provided services don't have plans)
+							if(! servicePlans.isEmpty()) {
+								serviceProperty.put(KEYWORD_PLANS, servicePlans);
+								/*
+                                  "cloudantNoSQLDB": {	// serviceLabel
+							      	"count": 2, 		// serviceProperty (number of service instances)
+									"plans": [
+												"Shared",
+												"Shared"
+											 ]
+							      }
+                             	*/	
+							}
+
 							boundVcapServices.put(serviceLabel, serviceProperty);
 						}
 						/*
 							"bound_vcap_services": {
-							    "rediscloud": {
-							      "count": 1
-							    },
-							    "cloudantNoSQLDB": {
-							      "count": 2
+                                "cloudantNoSQLDB": {	// serviceLabel
+							    	"count": 2, 		// serviceProperty (number of service instances)
+									"plans": [
+												"Shared",
+												"Shared"
+											 ]
 							    }
 						    }
 						 */
