@@ -19,7 +19,7 @@ To take advantage of the tracking functionality in a web application:
   <dependency>
     <groupId>com.ibm.bluemix.deploymenttracker</groupId>
     <artifactId>cf-java-app-tracker-client</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
   </dependency>
   ```
 
@@ -60,8 +60,10 @@ service on each deployment by default:
 * Space ID (`space_id`)
 * Application Version (`application_version`)
 * Application URIs (`application_uris`)
+* Labels of bound services
+* Number of instances for each bound service and associated plan information
 
-This data is collected from the `VCAP_APPLICATION` environment variable in IBM Bluemix 
+This data is collected from the `VCAP_APPLICATION` and `VCAP_SERVICES` environment variables in IBM Bluemix 
 and other Cloud Foundry platforms. This data is used by IBM to track metrics around 
 deployments of sample applications to IBM Bluemix to measure the usefulness of our examples,
 so that we can continuously improve the content we offer to you. 
@@ -73,8 +75,8 @@ as described in the usage notes below:
 
 # Disabling  Deployment Tracking
 
-To disable deployment tracking remove cf-java-app-tracker-client-{version}.jar
-from the web application's `WebContent/WEB-INF/lib` directory or from the pom.xml
+To disable deployment tracking remove `cf-java-app-tracker-client-{version}.jar`
+from the web application's `WebContent/WEB-INF/lib` directory or from the `pom.xml`
 and redeploy the application.
 ```
 
