@@ -19,7 +19,7 @@ To take advantage of the tracking functionality in a web application:
   <dependency>
     <groupId>com.ibm.bluemix.deploymenttracker</groupId>
     <artifactId>cf-java-app-tracker-client</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
   </dependency>
   ```
 
@@ -61,7 +61,7 @@ service on each deployment by default:
 * Application Version (`application_version`)
 * Application URIs (`application_uris`)
 * Labels of bound services
-* Number of instances for each bound service
+* Number of instances for each bound service and associated plan information
 
 This data is collected from the `VCAP_APPLICATION` and `VCAP_SERVICES` environment variables in IBM Bluemix 
 and other Cloud Foundry platforms. This data is used by IBM to track metrics around 
