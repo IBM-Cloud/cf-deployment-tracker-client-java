@@ -248,7 +248,7 @@ public class CFJavaTrackerClient {
 				payload.put(KEYWORD_REQUEST_DATE,dateFormatGmt.format(new Date()));					
 				// VCAP_APPLICATION properties
 				payload.put(KEYWORD_APPLICATION_ID, (String) obj.get(KEYWORD_APPLICATION_ID));				// singleton per VCAP_APPLICATION definition
-				payload.put(KEYWORD_APPLICATION_INSTANCE_INDEX, (String) obj.get(KEYWORD_APPLICATION_INSTANCE_INDEX));	// singleton per VCAP_APPLICATION definition
+				payload.put(KEYWORD_APPLICATION_INSTANCE_INDEX, (Long) obj.get(KEYWORD_APPLICATION_INSTANCE_INDEX));	// singleton per VCAP_APPLICATION definition
 				payload.put(KEYWORD_APPLICATION_NAME, (String) obj.get(KEYWORD_APPLICATION_NAME));			// singleton per VCAP_APPLICATION definition
 				payload.put(KEYWORD_APPLICATION_VERSION, (String) obj.get(KEYWORD_APPLICATION_VERSION));    // singleton per VCAP_APPLICATION definition
 				payload.put(KEYWORD_APPLICATION_URIS, (JSONArray) obj.get(KEYWORD_APPLICATION_URIS));       // array per VCAP_APPLICATION definition
