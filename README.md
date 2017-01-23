@@ -19,7 +19,7 @@ To take advantage of the tracking functionality in a web application:
   <dependency>
     <groupId>com.ibm.bluemix.deploymenttracker</groupId>
     <artifactId>cf-java-app-tracker-client</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
   </dependency>
   ```
 
@@ -57,6 +57,8 @@ deployments to [IBM Bluemix](https://www.bluemix.net/) and other Cloud Foundry p
 The following information is sent to a [Deployment Tracker](https://github.com/IBM-Bluemix/cf-deployment-tracker-service)
 service on each deployment by default:
 * Application Name (`application_name`)
+* Application GUID (`application_id`)
+* Application instance index (`instance_index`)
 * Space ID (`space_id`)
 * Application Version (`application_version`)
 * Application URIs (`application_uris`)

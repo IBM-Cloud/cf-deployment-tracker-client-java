@@ -50,6 +50,8 @@ public class CFJavaTrackerClient {
 	private static final String DEFAULT_TRACKER_URL = "https://deployment-tracker.mybluemix.net/api/v1/track";
 	
 	// tracking request property names
+	public static final String KEYWORD_APPLICATION_ID = "application_id";           // defined in VCAP_APPLICATION env property 
+	public static final String KEYWORD_APPLICATION_INSTANCE_INDEX = "instance_index";  // defined in VCAP_APPLICATION env property
 	public static final String KEYWORD_APPLICATION_NAME = "application_name";		// defined in VCAP_APPLICATION env property
 	public static final String KEYWORD_APPLICATION_VERSION = "application_version"; // defined in VCAP_APPLICATION env property 
 	public static final String KEYWORD_APPLICATION_URIS = "application_uris";       // defined in VCAP_APPLICATION env property
@@ -245,6 +247,8 @@ public class CFJavaTrackerClient {
 				dateFormatGmt.setTimeZone(TimeZone.getTimeZone("GMT")); // not strictly needed but added for clarity
 				payload.put(KEYWORD_REQUEST_DATE,dateFormatGmt.format(new Date()));					
 				// VCAP_APPLICATION properties
+				payload.put(KEYWORD_APPLICATION_ID, (String) obj.get(KEYWORD_APPLICATION_ID));				// singleton per VCAP_APPLICATION definition
+				payload.put(KEYWORD_APPLICATION_INSTANCE_INDEX, (String) obj.get(KEYWORD_APPLICATION_INSTANCE_INDEX));	// singleton per VCAP_APPLICATION definition
 				payload.put(KEYWORD_APPLICATION_NAME, (String) obj.get(KEYWORD_APPLICATION_NAME));			// singleton per VCAP_APPLICATION definition
 				payload.put(KEYWORD_APPLICATION_VERSION, (String) obj.get(KEYWORD_APPLICATION_VERSION));    // singleton per VCAP_APPLICATION definition
 				payload.put(KEYWORD_APPLICATION_URIS, (JSONArray) obj.get(KEYWORD_APPLICATION_URIS));       // array per VCAP_APPLICATION definition
