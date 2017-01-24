@@ -78,6 +78,14 @@ public class TrackingRequest {
 	public String getRequestingAppVersion() {
 		return (String) requestdata.get(CFJavaTrackerClient.KEYWORD_APPLICATION_VERSION);
 	} // end method
+
+	public String getRequestingAppGUID() {
+		return (String) requestdata.get(CFJavaTrackerClient.KEYWORD_APPLICATION_ID);
+	} // end method
+
+	public Long getRequestingAppInstanceIndex() {
+		return (Long) requestdata.get(CFJavaTrackerClient.KEYWORD_APPLICATION_INSTANCE_INDEX);
+	} // end method
 	
 	public String getTrackingKey() {
 		return (String) requestdata.get(CFJavaTrackerClient.KEYWORD_APPLICATION_NAME) + "#" + (String) requestdata.get(CFJavaTrackerClient.KEYWORD_APPLICATION_VERSION);

@@ -127,12 +127,18 @@ public class CFJavaTrackerServlet extends HttpServlet {
 				tr = it.next();
 				url = new URL(tr.getTrackingURL());
 				if(url.getPort() == -1)
-				    out.println("<tr><th>Tracker source code URL</th><td><a href=\"" + url.getProtocol() + "://" + url.getHost() + "\" target=\"_blank\">" + tr.getTrackingURL() +"</a></td></tr>");
+				    out.println("<tr><th>Tracker instance URL</th><td><a href=\"" + url.getProtocol() + "://" + url.getHost() + "\" target=\"_blank\">" + tr.getTrackingURL() +"</a></td></tr>");
 				else
-			        out.println("<tr><th>Tracker source code URL</th><td><a href=\"" + url.getProtocol() + "://" + url.getHost() + ":" + url.getPort() + "\" target=\"_blank\">" + tr.getTrackingURL() +"</a></td></tr>");
+			        out.println("<tr><th>Tracker instrance URL</th><td><a href=\"" + url.getProtocol() + "://" + url.getHost() + ":" + url.getPort() + "\" target=\"_blank\">" + tr.getTrackingURL() +"</a></td></tr>");
 				out.println("<tr>");
 				out.println("<th>Application name</th><td>" + tr.getRequestingAppName() + "</td>");
 				out.println("</tr>");
+				out.println("<tr>");
+				out.println("<th>Application id</th><td>" + tr.getRequestingAppGUID() + "</td>");
+				out.println("</tr>");
+				out.println("<tr>");
+				out.println("<th>Application instance index</th><td>" + tr.getRequestingAppInstanceIndex() + "</td>");
+				out.println("</tr>");				
 				out.println("<th>Application version</th><td>" + tr.getRequestingAppVersion() + "</td>");
 				out.println("</tr>");
 				out.println("<th>Tracking date</th><td>" + tr.getRequestDate() + "</td>");

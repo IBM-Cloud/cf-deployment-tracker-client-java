@@ -44,7 +44,7 @@ public class CFJavaTrackerClient {
 	private static final String TRACKER_SRC_URL = "https://github.com/IBM-Bluemix/cf-deployment-tracker-client-java";
 
 	// client tracker version
-	private static final String CLIENT_VERSION = "0.2.0";
+	private static final String CLIENT_VERSION = "0.3.0";
 	
 	// default URL to which tracking requests are sent
 	private static final String DEFAULT_TRACKER_URL = "https://deployment-tracker.mybluemix.net/api/v1/track";
