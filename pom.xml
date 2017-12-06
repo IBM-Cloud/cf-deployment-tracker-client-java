@@ -4,33 +4,18 @@
 
   <groupId>com.ibm.bluemix.deploymenttracker</groupId>
   <artifactId>cf-java-app-tracker-client</artifactId>
-  <version>0.3.0</version>
+  <version>0.3.1</version>
   <packaging>jar</packaging>
 
   <name>Cloud Foundry Java application tracker client</name>
 
-  <description>This utility sends a tracking request to a deployment tracker service (see https://github.com/IBM-Bluemix/cf-deployment-tracker-service) each time a Java sample application is deployed.</description>
+  <description>Discontinued.</description>
 
   <url>https://github.com/IBM-Bluemix/cf-deployment-tracker-client-java</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
- <repositories>
-  <repository>
-    <id>Liberty</id>
-    <name>Liberty Repository</name>
-    <url>http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/maven/repository/</url>
-    <layout>default</layout>
-    <snapshots>
-        <enabled>false</enabled>
-    </snapshots>
-    <releases>
-        <enabled>true</enabled>
-    </releases>
-  </repository>
- </repositories>
 
  <!-- Central repository -->
  <distributionManagement>
@@ -47,15 +32,6 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    
-    <dependency>
-      <groupId>com.ibm.tools.target</groupId>
-      <artifactId>was-liberty</artifactId>
-      <version>LATEST</version>
-      <type>pom</type>
-      <scope>provided</scope>
-    </dependency>
-
   </dependencies>
   
   <build>

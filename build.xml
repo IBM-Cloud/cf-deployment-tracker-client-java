@@ -9,13 +9,11 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
-    <property name="version.num" value="0.3.0"/>
+    <property name="version.num" value="0.3.1"/>
 
 	<property name="basejarname" value= "cf-java-app-tracker-client-${version.num}"/>
     <path id="classpathDir">
         <pathelement location="${tgtDir}"/>
-    	<pathelement location="dep-jar/com.ibm.json4j_1.0.9.jar"/>
-    	<pathelement location="dep-jar/com.ibm.ws.javaee.servlet.3.1_1.0.9.jar"/>
     </path>
     <target name="init">
         <mkdir dir="${tgtDir}"/>
